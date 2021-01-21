@@ -1,8 +1,8 @@
 import numpy as np
 
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.tree._tree import DTYPE
-from sklearn.ensemble.forest import ForestClassifier
+# from sklearn.tree._tree import DTYPE
+# from sklearn.ensemble.forest import ForestClassifier
 from sklearn.utils import resample, gen_batches, check_random_state
 #from sklearn.utils.extmath import fast_dot
 from sklearn.decomposition import PCA
@@ -104,7 +104,7 @@ class RotationTreeClassifier(DecisionTreeClassifier):
         return super(RotationTreeClassifier, self).decision_path(self.rotate(X),
                                                                  check_input)
 
-class RotationForestClassifier(ForestClassifier):
+class RotationForestClassifier(DecisionTreeClassifier):
     def __init__(self,
                  n_estimators=10,
                  criterion="gini",

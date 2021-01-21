@@ -1,13 +1,13 @@
 import numpy as np
 import scipy as sp
 
-from sklearn.metrics.classification import _check_targets, type_of_target
+from sklearn.utils.multiclass import type_of_target
 
 
 def balanced_accuracy(solution, prediction):
     """balanced accuracy implementation of auto-sklearn"""
 
-    y_type, solution, prediction = _check_targets(solution, prediction)
+    y_type = type_of_target(solution)
 
     if y_type not in ["binary", "multiclass", 'multilabel-indicator']:
         raise ValueError("{0} is not supported".format(y_type))
