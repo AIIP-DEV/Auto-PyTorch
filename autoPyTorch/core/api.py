@@ -229,6 +229,18 @@ class AutoNet():
             result['Y'] = Y_pred
             return result if not return_probabilities else (result, Y_pred)
 
+    def predict_proba(self, X):
+        """Predict the target probabilities for a data matrix X.
+        
+        Arguments:
+            X {array} -- The data matrix.
+        
+        Returns:
+            result -- The predicted target probabilities.
+        """
+        _, proba = self.predict(X, return_probabilities=True)
+        return proba
+
     def score(self, X_test, Y_test, return_loss_value=False):
         """Calculate the sore on test data using the specified optimize_metric
         
