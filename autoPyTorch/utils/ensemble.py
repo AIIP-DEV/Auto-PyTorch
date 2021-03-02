@@ -1,6 +1,7 @@
 import os
 import time
 import numpy as np
+import pandas as pd
 import json
 import math
 import tempfile
@@ -71,7 +72,7 @@ def combine_predictions(data, pipeline_kwargs, X, Y):
     all_indices = None
     all_predictions = None
     for split, predictions in data.items():
-        if (np.any(np.isnan(predictions))):
+        if (np.any(pd.isnull(predictions))):
             logging.getLogger("autonet").warn("Not saving predictions containing nans")
             return None
         indices = pipeline_kwargs[split]["valid_indices"]
@@ -109,7 +110,7 @@ def combine_test_predictions(data, pipeline_kwargs, X, Y):
     return host, port, unique
 
 def filter_nan_predictions(predictions, *args):
-    nan_predictions = set([i for i, p in enumerate(predictions) if np.any(np.isnan(p))])
+    nan_predictions = set([i for i, p in enumerate(predictions) if np.any(pd.isnull(p))])
     return [
         [x for i, x in enumerate(vector) if i not in nan_predictions] if vector is not None else None
         for vector in [predictions, *args]

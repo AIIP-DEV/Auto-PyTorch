@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 __author__ = "Max Dippel, Michael Burkart and Matthias Urban"
 __version__ = "0.0.1"
@@ -98,8 +99,8 @@ class DataConverter(object):
                 valid_value_indices = np.array([i for i, n in enumerate(values) if n != np.nan])
             else:
                 values, indices = np.unique(matrix_column, return_inverse=True)
-                nan_indices = np.argwhere(np.isnan(matrix_column)).flatten()
-                valid_value_indices = np.argwhere(~np.isnan(values)).flatten()
+                nan_indices = np.argwhere(pd.isnull(matrix_column)).flatten()
+                valid_value_indices = np.argwhere(pd.isnull(values)).flatten()
 
             # check for missing values
             # nan values are additional category in categorical features
@@ -150,6 +151,6 @@ class DataConverter(object):
             else:
                 self.is_multilabel = True
         else:
-            assert not np.any(np.isnan(Y)), "NaN in Y"
+            assert not np.any(pd.isnull(Y)), "NaN in Y"
             self.is_classification = False
         return Y

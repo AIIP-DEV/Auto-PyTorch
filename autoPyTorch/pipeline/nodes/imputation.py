@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import pandas as pd
 import scipy.sparse
 
 import ConfigSpace
@@ -24,7 +25,7 @@ class Imputation(PipelineNode):
             return {'imputation_preprocessor': None, 'all_nan_columns': None}
 
         # delete all nan columns
-        all_nan = np.all(np.isnan(X), axis=0)
+        all_nan = np.all(pd.isnull(X), axis=0)
         X = X[:, ~all_nan]
         dataset_info.categorical_features = [dataset_info.categorical_features[i] for i, is_nan in enumerate(all_nan) if not is_nan]
 
