@@ -355,3 +355,7 @@ class AutoNet():
             if not result[-1].shape:
                 raise RuntimeError("Given data-array is of unexpected type %s. Please pass numpy arrays instead." % type(array))
         return result
+
+    def __repr__(self):
+        sequential = self.get_pytorch_model()
+        return str(sequential)
